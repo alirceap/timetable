@@ -1,67 +1,69 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>مولد الجداول الدراسية - فردي / زوجي</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>📘 مولد الجدول الدراسي الذكي</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
-<h1>📘 مولد الجداول الدراسية - نسخة ذكية</h1>
+  <h1>📘 مولد الجدول الدراسي</h1>
 
-<section>
-  <h2>بيانات الكلية</h2>
-  <input type="text" id="daysInput" placeholder="أيام العمل (مثال: السبت,الأحد,...)">
-  <input type="number" id="startHour" placeholder="ساعة البداية (مثال: 9)">
-  <input type="number" id="endHour" placeholder="ساعة النهاية (مثال: 15)">
-</section>
+  <section>
+    <h2>إعدادات الكلية</h2>
+    <input type="text" id="daysInput" placeholder="مثلاً: السبت,الأحد,الإثنين" />
+    <input type="number" id="startHour" placeholder="بداية اليوم (مثلاً 8)" />
+    <input type="number" id="endHour" placeholder="نهاية اليوم (مثلاً 17)" />
+  </section>
+  
 
-<section>
-  <h2>القاعات المتاحة</h2>
-  <input type="text" id="roomInput" placeholder="اسم القاعة">
-  <button onclick="addRoom()">➕ إضافة قاعة</button>
-  <ul id="roomsList"></ul>
-</section>
+  <section>
+    <h2>القاعات</h2>
+    <input type="text" id="roomInput" placeholder="اسم القاعة" />
+    <button onclick="addRoom()">➕ إضافة قاعة</button>
+    <ul id="roomsList"></ul>
+  </section>
 
-<section>
-  <h2>إضافة مدرس</h2>
-  <input type="text" id="teacherName" placeholder="اسم المدرس">
-  <input type="text" id="subjectName" placeholder="المادة">
-  <input type="number" id="requiredLessons" placeholder="عدد الحصص الأسبوعية">
-  <input type="number" id="lessonDuration" placeholder="مدة الحصة (بالساعات)">
-  <select id="weekType">
-    <option value="كل">كل الأسابيع</option>
-    <option value="زوجي فقط">زوجي فقط</option>
-    <option value="فردي فقط">فردي فقط</option>
-  </select>
-  <h4>التوافر الزمني:</h4>
-  <div id="availabilityGrid"></div>
-  <button onclick="addTeacher()">➕ إضافة مدرس</button>
-  <table id="teachersTable">
-    <thead>
-      <tr><th>المدرس</th><th>المادة</th><th>الحصص</th><th>المدة</th><th>النوع</th><th>🗑</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</section>
+  <section>
+    <h2>إضافة مدرس</h2>
+    <input type="text" id="teacherName" placeholder="اسم المدرس" />
+    <input type="text" id="subjectName" placeholder="المادة" />
+    <input type="number" id="requiredLessons" placeholder="عدد الحصص" />
+    <input type="number" id="lessonDuration" placeholder="مدة الحصة" />
+    <h4>توافر المدرس:</h4>
+    <div id="availabilityGrid"></div>
+    <button onclick="addTeacher()">➕ إضافة مدرس</button>
 
-<section style="text-align:center;">
-  <button onclick="generate()">📅 توليد الجدولين</button>
-</section>
+    <table id="teachersTable">
+      <thead>
+        <tr>
+          <th>المدرس</th><th>المادة</th><th>الحصص</th><th>المدة</th><th>حذف</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
 
-<section>
-  <h2>📋 جدول الأسبوع <strong>الزوجي</strong></h2>
-  <div id="evenSchedule"></div>
-  <button onclick="downloadPDF('evenSchedule')">📄 تحميل PDF</button>
-</section>
+  <section>
+    <h2>القيود اليدوية (اختياري)</h2>
+    <textarea id="customConstraint" placeholder="مثال: لا يُسمح للمدرس 'أحمد' بالتدريس يوم الأحد الساعة 9"></textarea><br>
+    <button onclick="applyCustomConstraint()">➕ إضافة قيد يدوي</button>
+  </section>
 
-<section>
-  <h2>📋 جدول الأسبوع <strong>الفردي</strong></h2>
-  <div id="oddSchedule"></div>
-  <button onclick="downloadPDF('oddSchedule')">📄 تحميل PDF</button>
-</section>
+  <section>
+    <h2>التوليد</h2>
+    <button onclick="generate()">📅 توليد جدول واحد</button>
+    <button onclick="generateBest()">📊 توليد أفضل جدول (محاولات متعددة)</button>
+  </section>
 
-<script src="app.js"></script>
+  <section>
+    <h2>📋 الجدول النهائي</h2>
+    <div id="finalSchedule"></div>
+    <p id="scheduleScore"></p>
+    <button onclick="downloadPDF('finalSchedule')">📄 تحميل PDF</button>
+  </section>
+
+  <script src="app.js"></script>
 </body>
 </html>
